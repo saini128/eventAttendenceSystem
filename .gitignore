@@ -1,6 +1,7 @@
 # Rust files
 server/rust_server/target/
 server/rust_server/Cargo.lock
+/target
 
 # Compiled binary
 *.rs.bk
