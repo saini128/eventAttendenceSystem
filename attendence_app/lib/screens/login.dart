@@ -1,4 +1,5 @@
 import 'package:attendence_app/components/keyboardd.dart';
+import 'package:attendence_app/screens/dashboard.dart';
 import 'package:flutter/material.dart';
 
 class Login extends StatefulWidget {
@@ -20,6 +21,14 @@ class _LoginState extends State<Login> {
     passkey.text = passk;
     if (passk == "5461") {
       print("password matched");
+      Navigator.push(
+        context,
+        MaterialPageRoute(
+          builder: (context) {
+            return Dashboard();
+          },
+        ),
+      );
     }
   }
 
@@ -47,28 +56,26 @@ class _LoginState extends State<Login> {
                       const EdgeInsets.symmetric(horizontal: 20, vertical: 20),
                   child: TextField(
                     controller: passkey,
-                    keyboardType: TextInputType.number,
                     obscureText: true,
                     readOnly: true,
-                    maxLength: 4,
                     textAlign: TextAlign.center,
                     decoration: InputDecoration(
                       filled: true,
                       fillColor: Colors.grey[200],
                       hintText: 'Enter passkey',
-                      counterText: '', // Hide the built-in counter
+                      counterText: '',
                       contentPadding: EdgeInsets.symmetric(vertical: 16.0),
                       border: OutlineInputBorder(
                         borderRadius: BorderRadius.circular(10.0),
-                        borderSide: BorderSide.none, // No side borders
+                        borderSide: BorderSide.none,
                       ),
                       enabledBorder: OutlineInputBorder(
                         borderRadius: BorderRadius.circular(10.0),
-                        borderSide: BorderSide.none, // No side borders
+                        borderSide: BorderSide.none,
                       ),
                       focusedBorder: OutlineInputBorder(
                         borderRadius: BorderRadius.circular(10.0),
-                        borderSide: BorderSide.none, // No side borders
+                        borderSide: BorderSide.none,
                       ),
                     ),
                   )),
