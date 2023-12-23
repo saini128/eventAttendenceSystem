@@ -1,3 +1,4 @@
+import 'package:attendence_app/screens/participant.dart';
 import 'package:flutter/material.dart';
 
 // ignore: must_be_immutable
@@ -57,6 +58,14 @@ class Dashboard extends StatelessWidget {
                 ElevatedButton(
                   onPressed: () {
                     print("Check Database");
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                        builder: (context) {
+                          return Participant();
+                        },
+                      ),
+                    );
                   },
                   child: Text('Check Database', style: TextStyle(fontSize: 16)),
                   style: ElevatedButton.styleFrom(
