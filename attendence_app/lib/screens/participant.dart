@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
 
 class Participant extends StatefulWidget {
-  const Participant({super.key});
+  final String rollNo;
+  const Participant({super.key, required this.rollNo});
 
   @override
   State<Participant> createState() => _ParticipantState();
@@ -33,7 +34,7 @@ class _ParticipantState extends State<Participant> {
                             fontSize: 20, fontWeight: FontWeight.w300),
                       ),
                       Text(
-                        "102203576",
+                        widget.rollNo,
                         style: TextStyle(
                             fontSize: 20, fontWeight: FontWeight.w300),
                       ),

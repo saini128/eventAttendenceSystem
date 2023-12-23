@@ -1,4 +1,4 @@
-import 'package:attendence_app/screens/participant.dart';
+import 'package:attendence_app/screens/browseDatabase.dart';
 import 'package:flutter/material.dart';
 
 // ignore: must_be_immutable
@@ -62,7 +62,7 @@ class Dashboard extends StatelessWidget {
                       context,
                       MaterialPageRoute(
                         builder: (context) {
-                          return Participant();
+                          return browseDatabase();
                         },
                       ),
                     );
