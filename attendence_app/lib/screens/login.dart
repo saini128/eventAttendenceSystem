@@ -11,16 +11,23 @@ class Login extends StatefulWidget {
 
 class _LoginState extends State<Login> {
   String passk = '';
+  bool showErrorBorder = false;
   TextEditingController passkey = TextEditingController();
   void keypadController(String a) {
     if (passk.length < 4 && a != "⌫") {
       passk += a;
+      showErrorBorder = false;
     } else if (passk.length > 0 && a == "⌫") {
       passk = passk.substring(0, passk.length - 1);
+      showErrorBorder = false;
     }
     passkey.text = passk;
     if (passk == "5461") {
       print("password matched");
+      passkey.text = '';
+      passk = '';
+      showErrorBorder = false;
+      setState(() {});
       Navigator.push(
         context,
         MaterialPageRoute(
@@ -29,7 +36,12 @@ class _LoginState extends State<Login> {
           },
         ),
       );
+    } else if (passk.length == 4) {
+      showErrorBorder = true;
+    } else {
+      showErrorBorder = false;
     }
+    setState(() {});
   }
 
   @override
@@ -67,15 +79,24 @@ class _LoginState extends State<Login> {
                       contentPadding: EdgeInsets.symmetric(vertical: 16.0),
                       border: OutlineInputBorder(
                         borderRadius: BorderRadius.circular(10.0),
-                        borderSide: BorderSide.none,
+                        borderSide: BorderSide(
+                            color: showErrorBorder
+                                ? Colors.red
+                                : Colors.transparent),
                       ),
                       enabledBorder: OutlineInputBorder(
                         borderRadius: BorderRadius.circular(10.0),
-                        borderSide: BorderSide.none,
+                        borderSide: BorderSide(
+                            color: showErrorBorder
+                                ? Colors.red
+                                : Colors.transparent),
                       ),
                       focusedBorder: OutlineInputBorder(
                         borderRadius: BorderRadius.circular(10.0),
-                        borderSide: BorderSide.none,
+                        borderSide: BorderSide(
+                            color: showErrorBorder
+                                ? Colors.red
+                                : Colors.transparent),
                       ),
                     ),
                   )),

@@ -117,10 +117,8 @@ app.post('/updateStudent', async (req, res) => {
       res.setHeader('Content-Disposition', 'attachment; filename=students.csv');
       res.setHeader('Content-Type', 'text/csv');
   
-      // Stream the file directly to the response for download
       fs.createReadStream('students.csv').pipe(res);
   
-      // Cleanup: Remove the generated CSV file after download
       writableStream.on('finish', () => {
         fs.unlinkSync('students.csv');
       });

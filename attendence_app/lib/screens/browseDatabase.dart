@@ -10,15 +10,15 @@ class browseDatabase extends StatefulWidget {
 }
 
 class _browseDatabaseState extends State<browseDatabase> {
-  String rollNo = '';
+  String studentId = '';
   TextEditingController num = TextEditingController();
   void keypadController(String a) {
     if (a != "⌫") {
-      rollNo += a;
-    } else if (rollNo.length > 0 && a == "⌫") {
-      rollNo = rollNo.substring(0, rollNo.length - 1);
+      studentId += a;
+    } else if (studentId.length > 0 && a == "⌫") {
+      studentId = studentId.substring(0, studentId.length - 1);
     }
-    num.text = rollNo;
+    num.text = studentId;
   }
 
   @override
@@ -72,7 +72,8 @@ class _browseDatabaseState extends State<browseDatabase> {
                     context,
                     MaterialPageRoute(
                       builder: (context) {
-                        return Participant(rollNo: rollNo);
+                        return Participant(
+                            studentID: "65c0fe396b68e5b84965310e");
                       },
                     ),
                   );
