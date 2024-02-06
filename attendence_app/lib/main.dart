@@ -1,4 +1,4 @@
-import 'package:attendence_app/screens/login.dart';
+import 'package:HackTU/screens/login.dart';
 import 'package:flutter/material.dart';
 
 void main() {

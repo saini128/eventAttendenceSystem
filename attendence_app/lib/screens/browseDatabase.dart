@@ -1,5 +1,5 @@
-import 'package:attendence_app/components/keyboardd.dart';
-import 'package:attendence_app/screens/participant.dart';
+import 'package:HackTU/components/keyboardd.dart';
+import 'package:HackTU/screens/participant.dart';
 import 'package:flutter/material.dart';
 
 class browseDatabase extends StatefulWidget {
