@@ -17,10 +17,6 @@ class _DashboardState extends State<Dashboard> {
   Future<void> scanQR() async {
     String barcodeScanRes;
 
-    //if (!_scanning) return; // Avoid multiple scan attempts
-    //await Future.delayed(Duration(seconds: 2));
-
-    // Mark that scanning is in progress
     setState(() {});
     try {
       barcodeScanRes = await FlutterBarcodeScanner.scanBarcode(
@@ -97,25 +93,7 @@ class _DashboardState extends State<Dashboard> {
             ),
             Expanded(
               child: Column(
-                // mainAxisAlignment: MainAxisAlignment.center,
                 children: [
-                  // ElevatedButton(
-                  //   onPressed: () {
-                  //     print("ScanQR");
-                  //     scanQR();
-                  //   },
-                  //   child: Text('Scan QR', style: TextStyle(fontSize: 16)),
-                  //   style: ElevatedButton.styleFrom(
-                  //     primary: Colors.blue,
-                  //     onPrimary: Colors.white,
-                  //     padding: EdgeInsets.symmetric(horizontal: 40, vertical: 15),
-                  //     shape: RoundedRectangleBorder(
-                  //       borderRadius: BorderRadius.circular(8),
-                  //     ),
-                  //     elevation: 3,
-                  //   ),
-                  // ),
-
                   Padding(
                     padding: const EdgeInsets.only(top: 30.0),
                     child: Container(
@@ -140,59 +118,8 @@ class _DashboardState extends State<Dashboard> {
                           TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
                     ),
                   ),
-
-                  // GestureDetector(
-                  //   onTap: () {
-                  //     Navigator.push(
-                  //       context,
-                  //       MaterialPageRoute(
-                  //         builder: (context) {
-                  //           return browseDatabase();
-                  //         },
-                  //       ),
-                  //     );
-                  //   },
-                  //   child: Column(
-                  //     children: [
-                  //       Card(
-                  //         clipBehavior: Clip.antiAliasWithSaveLayer,
-                  //         elevation: 4,
-                  //         shape: RoundedRectangleBorder(
-                  //           borderRadius: BorderRadius.circular(8),
-                  //         ),
-                  //         child: Container(
-                  //           height: 90,
-                  //           width: 90,
-                  //           child: Padding(
-                  //             padding: const EdgeInsets.all(14.0),
-                  //             child: Image.asset(
-                  //               'assets/qr-code.png',
-                  //               height: 100,
-                  //               width: 100,
-                  //               fit: BoxFit.contain,
-                  //             ),
-                  //           ),
-                  //         ),
-                  //       ),
-                  //       Padding(
-                  //         padding: const EdgeInsets.all(8.0),
-                  //         child: Text('Scan QR!!'),
-                  //       )
-                  //     ],
-                  //   ),
-                  // ),
                   GestureDetector(
                     onTap: () {
-                      print("ScanQR");
-                      // Navigator.push(
-                      //   context,
-                      //   MaterialPageRoute(
-                      //     builder: (context) {
-                      //       return Participant(
-                      //           studentID: "65c0fe396b68e5b84965310e");
-                      //     },
-                      //   ),
-                      // );
                       scanQR();
                     },
                     child: Column(
@@ -224,40 +151,6 @@ class _DashboardState extends State<Dashboard> {
                       ],
                     ),
                   ),
-                  // SizedBox(height: 10),
-                  // ElevatedButton(
-                  //   onPressed: () {
-                  //     print("Check Database");
-                  // Navigator.push(
-                  //   context,
-                  //   MaterialPageRoute(
-                  //     builder: (context) {
-                  //       return browseDatabase();
-                  //     },
-                  //   ),
-                  // );
-                  //   },
-                  //   child: Text('Check Database', style: TextStyle(fontSize: 16)),
-                  //   style: ElevatedButton.styleFrom(
-                  //     primary: Colors.blue,
-                  //     onPrimary: Colors.white,
-                  //     padding: EdgeInsets.symmetric(horizontal: 40, vertical: 15),
-                  //     shape: RoundedRectangleBorder(
-                  //       borderRadius: BorderRadius.circular(8),
-                  //     ),
-                  //     elevation: 3,
-                  //   ),
-                  // ),
-                  // SizedBox(height: 30),
-                  // Text('Present Participants: ' +
-                  //     present_participants.toString() +
-                  //     '/' +
-                  //     total_participants.toString()),
-                  // SizedBox(height: 10),
-                  // Text('Teams Entered: ' +
-                  //     present_teams.toString() +
-                  //     '/' +
-                  //     total_teams.toString()),
                 ],
               ),
             ),
