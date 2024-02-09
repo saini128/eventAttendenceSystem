@@ -23,7 +23,7 @@ if (flutterVersionName == null) {
 }
 
 android {
-    namespace "com.example.attendence_app"
+    namespace "com.ccs.attendence_app"
     compileSdkVersion flutter.compileSdkVersion
     ndkVersion flutter.ndkVersion
 
@@ -42,7 +42,7 @@ android {
 
     defaultConfig {
         // TODO: Specify your own unique Application ID (https://developer.android.com/studio/build/application-id.html).
-        applicationId "com.example.attendence_app"
+        applicationId "com.ccs.attendence_app"
         // You can update the following values to match your application needs.
         // For more information, see: https://docs.flutter.dev/deployment/android#reviewing-the-gradle-build-configuration.
         minSdkVersion 20
@@ -51,7 +51,14 @@ android {
         versionName flutterVersionName
         multiDexEnabled true
     }
-
+    signingConfigs {
+        release {
+            keyAlias 'key'
+            keyPassword 'CCStiet@1234'
+            storeFile file("D:/eventAttendenceSystem/attendence_app/build/app/outputs/bundle/release/key.jks")
+            storePassword 'CCStiet@1234'
+        }
+    }
     buildTypes {
         release {
             // TODO: Add your own signing config for the release build.

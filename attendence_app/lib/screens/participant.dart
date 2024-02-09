@@ -31,6 +31,8 @@ class _ParticipantState extends State<Participant> {
   int memberRoll = 0;
   int tableNumber = 0;
   String tableMessage = '';
+  String extentionMessage = "No Extention with Team";
+  bool extentionBoard = false;
   String eror = "";
 
   bool dataFetched = false;
@@ -102,9 +104,16 @@ class _ParticipantState extends State<Participant> {
           memberYear = data['memberYear'] ?? '';
           memberRoll = data['memberRoll'] ?? 0;
           prs = data['checkedIn'] ?? false;
+          extentionBoard = data['extentionBoard'] ?? false;
         });
         if (prs) {
           markPresent();
+          if (extentionBoard) {
+            extentionMessage = 'Extention Allotted';
+          } else {
+            extentionMessage = 'No Extention with Team';
+          }
+          setState(() {});
         }
       } else {
         setState(() {
@@ -193,6 +202,78 @@ class _ParticipantState extends State<Participant> {
     }
   }
 
+  Future<void> extentionCordTakenByTeam() async {
+    try {
+      final url = Uri.parse(
+          'https://api.helix.ccstiet.com/api/v1/hacktu/takeExtention');
+      final response = await http.post(
+        url,
+        body: json.encode({'teamID': teamID, 'password': 'xxxxxx@xxx'}),
+        headers: {'Content-Type': 'application/json'},
+      );
+      print(response.body);
+      if (response.statusCode == 200) {
+        final jsonData = json.decode(response.body);
+        final resp = jsonData['success'];
+
+        print(resp);
+        if (resp == true) {
+          setState(() {
+            extentionBoard = true;
+            extentionMessage = 'Extention Allotted';
+          });
+        } else if (resp == false &&
+            jsonData['message'] == "Extention Cord Taken") {
+          extentionBoard = true;
+          extentionMessage = 'Extention Allotted';
+          setState(() {});
+        }
+      } else {
+        setState(() {
+          eror = 'Failed to fetch data.';
+        });
+        print('Failed to fetch data. Status code: ${response.statusCode}');
+      }
+    } on SocketException {
+      setState(() {
+        eror = 'Connection error';
+      });
+    }
+  }
+
+  Future<void> extentionCordReturned() async {
+    try {
+      final url = Uri.parse(
+          'https://api.helix.ccstiet.com/api/v1/hacktu/returnExtention');
+      final response = await http.post(
+        url,
+        body: json.encode({'teamID': teamID, 'password': 'xxxxxx@xxx'}),
+        headers: {'Content-Type': 'application/json'},
+      );
+      print(response.body);
+      if (response.statusCode == 200) {
+        final jsonData = json.decode(response.body);
+        final resp = jsonData['success'];
+        // final message = jsonData['message'];
+        extentionMessage = 'No Extention with Team';
+        if (resp == true)
+          setState(() {
+            extentionMessage = 'No Extention with Team';
+            extentionBoard = false;
+          });
+      } else {
+        setState(() {
+          eror = 'Failed to fetch data.';
+        });
+        print('Failed to fetch data. Status code: ${response.statusCode}');
+      }
+    } on SocketException {
+      setState(() {
+        eror = 'Connection error';
+      });
+    }
+  }
+
   @override
   void initState() {
     super.initState();
@@ -256,13 +337,13 @@ class _ParticipantState extends State<Participant> {
                                     Text(
                                       "Name : ",
                                       style: TextStyle(
-                                          fontSize: 20,
+                                          fontSize: 18,
                                           fontWeight: FontWeight.w300),
                                     ),
                                     Text(
                                       name,
                                       style: TextStyle(
-                                          fontSize: 20,
+                                          fontSize: 18,
                                           fontWeight: FontWeight.w300),
                                     ),
                                   ],
@@ -273,13 +354,13 @@ class _ParticipantState extends State<Participant> {
                                     Text(
                                       "Team Name : ",
                                       style: TextStyle(
-                                          fontSize: 20,
+                                          fontSize: 18,
                                           fontWeight: FontWeight.w300),
                                     ),
                                     Text(
                                       teamName,
                                       style: TextStyle(
-                                          fontSize: 20,
+                                          fontSize: 18,
                                           fontWeight: FontWeight.w300),
                                     ),
                                   ],
@@ -290,13 +371,13 @@ class _ParticipantState extends State<Participant> {
                                     Text(
                                       "College : ",
                                       style: TextStyle(
-                                          fontSize: 20,
+                                          fontSize: 18,
                                           fontWeight: FontWeight.w300),
                                     ),
                                     Text(
                                       college,
                                       style: TextStyle(
-                                          fontSize: 20,
+                                          fontSize: 18,
                                           fontWeight: FontWeight.w300),
                                     ),
                                   ],
@@ -307,13 +388,13 @@ class _ParticipantState extends State<Participant> {
                                     Text(
                                       "Email : ",
                                       style: TextStyle(
-                                          fontSize: 20,
+                                          fontSize: 18,
                                           fontWeight: FontWeight.w300),
                                     ),
                                     Text(
                                       memberEmail,
                                       style: TextStyle(
-                                          fontSize: 20,
+                                          fontSize: 18,
                                           fontWeight: FontWeight.w300),
                                     ),
                                   ],
@@ -324,13 +405,13 @@ class _ParticipantState extends State<Participant> {
                                     Text(
                                       "Phone : ",
                                       style: TextStyle(
-                                          fontSize: 20,
+                                          fontSize: 18,
                                           fontWeight: FontWeight.w300),
                                     ),
                                     Text(
                                       memberPhone.toInt().toString(),
                                       style: TextStyle(
-                                          fontSize: 20,
+                                          fontSize: 18,
                                           fontWeight: FontWeight.w300),
                                     ),
                                   ],
@@ -341,13 +422,13 @@ class _ParticipantState extends State<Participant> {
                                     Text(
                                       "Gender : ",
                                       style: TextStyle(
-                                          fontSize: 20,
+                                          fontSize: 18,
                                           fontWeight: FontWeight.w300),
                                     ),
                                     Text(
                                       memberGender,
                                       style: TextStyle(
-                                          fontSize: 20,
+                                          fontSize: 18,
                                           fontWeight: FontWeight.w300),
                                     ),
                                   ],
@@ -358,13 +439,13 @@ class _ParticipantState extends State<Participant> {
                                     Text(
                                       "Hostel : ",
                                       style: TextStyle(
-                                          fontSize: 20,
+                                          fontSize: 18,
                                           fontWeight: FontWeight.w300),
                                     ),
                                     Text(
                                       memberHostel,
                                       style: TextStyle(
-                                          fontSize: 20,
+                                          fontSize: 18,
                                           fontWeight: FontWeight.w300),
                                     ),
                                   ],
@@ -375,13 +456,13 @@ class _ParticipantState extends State<Participant> {
                                     Text(
                                       "Year : ",
                                       style: TextStyle(
-                                          fontSize: 20,
+                                          fontSize: 18,
                                           fontWeight: FontWeight.w300),
                                     ),
                                     Text(
                                       memberYear,
                                       style: TextStyle(
-                                          fontSize: 20,
+                                          fontSize: 18,
                                           fontWeight: FontWeight.w300),
                                     ),
                                   ],
@@ -392,13 +473,13 @@ class _ParticipantState extends State<Participant> {
                                     Text(
                                       "Roll : ",
                                       style: TextStyle(
-                                          fontSize: 20,
+                                          fontSize: 18,
                                           fontWeight: FontWeight.w300),
                                     ),
                                     Text(
                                       memberRoll.toString(),
                                       style: TextStyle(
-                                          fontSize: 20,
+                                          fontSize: 18,
                                           fontWeight: FontWeight.w300),
                                     ),
                                   ],
@@ -409,13 +490,13 @@ class _ParticipantState extends State<Participant> {
                                     Text(
                                       "Offline Presence Status : ",
                                       style: TextStyle(
-                                          fontSize: 20,
+                                          fontSize: 18,
                                           fontWeight: FontWeight.w300),
                                     ),
                                     Text(
                                       prs ? "Present" : "Absent",
                                       style: TextStyle(
-                                          fontSize: 20,
+                                          fontSize: 18,
                                           fontWeight: FontWeight.w300),
                                     ),
                                   ],
@@ -428,21 +509,13 @@ class _ParticipantState extends State<Participant> {
                                     Text(
                                       eror,
                                       style: TextStyle(
-                                          fontSize: 20,
+                                          fontSize: 18,
                                           color: Colors.red,
                                           fontWeight: FontWeight.w300),
                                     ),
                                   ],
                                 ),
                                 SizedBox(height: 10),
-                                // ElevatedButton(
-                                //   onPressed: () {
-                                //     setState(() {
-                                //       prs ? markAbsent() : markPresent();
-                                //     });
-                                //   },
-                                //   child: Text("Update status"),
-                                // ),
                                 Row(
                                   mainAxisAlignment: MainAxisAlignment.center,
                                   children: [
@@ -486,6 +559,54 @@ class _ParticipantState extends State<Participant> {
                                               padding:
                                                   const EdgeInsets.all(8.0),
                                               child: Text('Update Status'),
+                                            )
+                                          ],
+                                        ),
+                                      ),
+                                    ),
+                                    SizedBox(
+                                      width: 10,
+                                    ),
+                                    Container(
+                                      child: GestureDetector(
+                                        onTap: () {
+                                          {
+                                            setState(() {
+                                              extentionBoard
+                                                  ? extentionCordReturned()
+                                                  : extentionCordTakenByTeam();
+                                            });
+                                          }
+                                        },
+                                        child: Column(
+                                          children: [
+                                            Card(
+                                              clipBehavior:
+                                                  Clip.antiAliasWithSaveLayer,
+                                              elevation: 4,
+                                              shape: RoundedRectangleBorder(
+                                                borderRadius:
+                                                    BorderRadius.circular(8),
+                                              ),
+                                              child: Container(
+                                                height: 70,
+                                                width: 70,
+                                                child: Padding(
+                                                  padding: const EdgeInsets.all(
+                                                      14.0),
+                                                  child: Image.asset(
+                                                    'assets/plug.png',
+                                                    height: 100,
+                                                    width: 100,
+                                                    fit: BoxFit.contain,
+                                                  ),
+                                                ),
+                                              ),
+                                            ),
+                                            Padding(
+                                              padding:
+                                                  const EdgeInsets.all(8.0),
+                                              child: Text('Extention Status'),
                                             )
                                           ],
                                         ),
@@ -538,7 +659,19 @@ class _ParticipantState extends State<Participant> {
                                     Text(
                                       tableMessage,
                                       style: TextStyle(
-                                          fontSize: 20,
+                                          fontSize: 18,
+                                          fontWeight: FontWeight.bold),
+                                    ),
+                                  ],
+                                ),
+                                SizedBox(height: 10),
+                                Row(
+                                  mainAxisAlignment: MainAxisAlignment.center,
+                                  children: [
+                                    Text(
+                                      extentionMessage,
+                                      style: TextStyle(
+                                          fontSize: 18,
                                           fontWeight: FontWeight.bold),
                                     ),
                                   ],

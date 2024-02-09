@@ -83,14 +83,14 @@ class _DashboardState extends State<Dashboard> {
                 children: [
                   Image.asset(
                     'assets/ccslogo.png',
-                    height: 100,
-                    width: 100,
+                    height: 70,
+                    width: 70,
                     fit: BoxFit.contain,
                   ),
                   SizedBox(width: 20),
                   Text(
                     "Welcome to Dashboard",
-                    style: TextStyle(fontSize: 24, fontWeight: FontWeight.w500),
+                    style: TextStyle(fontSize: 19, fontWeight: FontWeight.w500),
                   ),
                 ],
               ),
@@ -184,6 +184,15 @@ class _DashboardState extends State<Dashboard> {
                   GestureDetector(
                     onTap: () {
                       print("ScanQR");
+                      // Navigator.push(
+                      //   context,
+                      //   MaterialPageRoute(
+                      //     builder: (context) {
+                      //       return Participant(
+                      //           studentID: "65c0fe396b68e5b84965310e");
+                      //     },
+                      //   ),
+                      // );
                       scanQR();
                     },
                     child: Column(
